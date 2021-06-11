@@ -20,7 +20,7 @@ struct nodeSach{//Đây là sách
 }; 
 typedef struct nodeSach *pDMS;
 
-/*struct list{
+struct list{
 	pDMS *phead ;
 	pDMS *ptail ;
 	list(){
@@ -55,7 +55,6 @@ void Insert_last(List &l, pDMS *p){
 		l.phead->next=p;
 		p->next=l.ptail;
 	}
-}*/
 
 
 // Cau truc dau sach: Danh sach tuyen tinh.
