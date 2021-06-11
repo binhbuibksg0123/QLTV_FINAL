@@ -15,7 +15,7 @@ struct Sach{
 	}
 };
 struct nodeSach{//Testvscode
-	Sach sach;
+	Sach sach;//testvscode
 	nodeSach *next;
 }; 
 typedef struct nodeSach *pDMS;
