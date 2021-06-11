@@ -15,8 +15,8 @@ struct Sach{
 	}
 };
 struct nodeSach{//Đây là sách 
-	Sach sach;
-	nodeSach *next;
+	Sach sach;//??????
+	nodeSach *next;//Testvscode
 }; 
 typedef struct nodeSach *pDMS;
 
@@ -29,7 +29,7 @@ struct list{
 	}
 };
 typedef struct list List;
-/*
+
 pDMS *Khoitaonodesach(Sach newsach){
 	pDMS *p = new pDMS;
 	if(p==NULL)
@@ -55,7 +55,7 @@ void Insert_last(List &l, pDMS *p){
 		l.phead->next=p;
 		p->next=l.ptail;
 	}
-*/
+
 
 // Cau truc dau sach: Danh sach tuyen tinh.
 struct Dausach{
