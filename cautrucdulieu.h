@@ -14,7 +14,7 @@ struct Sach{
 		Vitri[0]='\0';
 	}
 };
-struct nodeSach{//Đây là sách 
+struct nodeSach{//Test vs code
 	Sach sach;
 	nodeSach *next;
 }; 
