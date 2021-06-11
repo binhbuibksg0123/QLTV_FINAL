@@ -19,7 +19,7 @@ struct nodeSach{//Đây là sách
 	nodeSach *next;//Testvscode
 }; //testvscode
 typedef struct nodeSach *pDMS;//testvscode
-
+// day la test
 struct list{
 	pDMS *phead ;
 	pDMS *ptail ;
