@@ -14,51 +14,32 @@ struct Sach{
 		Vitri[0]='\0';
 	}
 };
-
-struct nodeSach{//Testvscode
-	Sach sach;//testvscode
-	nodeSach *next;
+struct nodeSach{
+	Sach sach;
+	nodeSach *next;		
 }; 
 typedef struct nodeSach *pDMS;
 
-struct list{
-	pDMS *phead ;
-	pDMS *ptail ;
-	list(){
-		phead = NULL;
-		ptail = NULL;
+struct List{
+	pDMS First=NULL;
+		
+	void Insert_first(Sach &news){
+		pDMS p = new nodeSach;
+		p->sach=news;
+		p->next=First;
+		First=p;	
+	}
+	
+	int rdMS(int pos){
+		int s;
+		s = rand() % (57-48+1)+48;
+		return s;
 	}
 };
-typedef struct list List;
+typedef struct List list;
 
-/*
-pDMS *Khoitaonodesach(Sach newsach){
-	pDMS *p = new pDMS;
-	if(p==NULL)
-		return NULL;
-	p->sach=newsach;
-	p->next=NULL;
-	return p;
-}
 
-void Insert_first(List &l, pDMS *p){
-	if(l.phead=NULL){
-		l.phead = l.ptail = p;
-	} else {
-		p->next=l.phead;
-		l.phead=p;
-	}		
-}
-
-void Insert_last(List &l, pDMS *p){
-	if(l.phead=NULL){
-		l.phead = l.ptail = p;
-	} else {
-		l.phead->next=p;
-		p->next=l.ptail;
-	}
-*/
-
+ 
 // Cau truc dau sach: Danh sach tuyen tinh.
 struct Dausach{
 	char ISBN[15];
@@ -68,6 +49,8 @@ struct Dausach{
 	unsigned int Namxb;
 	char Theloai[30];
 	nodeSach *dms=NULL;
+	
+	struct List listsach;
 	int soluong; // so luong sach moi dau sach
 	Dausach(){
 		ISBN[0]='\0';
@@ -82,6 +65,7 @@ struct Dausach{
 struct DS_Dausach{
 	int n;
 	Dausach *nodes[Maxdausach];	
+	
 	DS_Dausach(){
 		n=0;
 	}
@@ -93,7 +77,17 @@ struct DS_Dausach{
 		}
 		return NULL;
 	}
+	
+	void addsach(int pos, Sach &newsach){
+		struct Dausach *p = nodes[pos];
+		p->listsach.Insert_first(newsach);
+	}
+	
 }; typedef struct DS_Dausach DSDS;
+
+
+
+
 
 /*pDMS *p = new pDMS;
 DSDS.nodes[stt]->dms->sach;*/
@@ -202,10 +196,10 @@ void WriteDs(ofstream &file, struct Dausach *p){
 	file<<p->Theloai<<endl;
 }
 
-void WriteDms(ofstream &file, struct Sach p){
-	file<<p.Masach<<endl;
-	file<<p.Trangthai<<endl;
-	file<<p.Vitri<<endl;
+void WriteDms(ofstream &file, struct Sach *p){
+	file<<p->Masach<<endl;
+	file<<p->Trangthai<<endl;
+	file<<p->Vitri<<endl;
 }
 
 void ReadDms(ifstream &file,  struct Sach p){
@@ -227,10 +221,14 @@ void SaveDs(DSDS &dsds){
 	logs<<dsds.n;
 	for(int i=0; i<dsds.n; i++){
 		WriteDs(fileDs, dsds.nodes[i]);
-		fileDms<<dsds.nodes[i]->soluong<<endl; 
-		/*for(pDMS *p = l.phead; p != NULL; p=p->next){
-				WriteDms(fileDms,p->sach);
-		}*/
+		fileDms<<dsds.nodes[i]->soluong<<endl;
+		 struct List tmpL = dsds.nodes[i]->listsach;
+		for(pDMS node=tmpL.First; node != NULL; node = node->next){
+//				WriteDms(fileDms, node);
+				fileDms<<node->sach.Masach<<endl;
+				fileDms<<node->sach.Trangthai<<endl;
+				fileDms<<node->sach.Vitri<<endl;
+		}
 	}
 	fileDs.close();
 }
@@ -256,7 +254,6 @@ void LoadDs(DSDS &dsds){
 	}*/
 	fileDs.close();
 }
-
 
 
 
