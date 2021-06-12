@@ -14,13 +14,23 @@ struct Sach{
 		Vitri[0]='\0';
 	}
 };
+<<<<<<< HEAD
+<<<<<<< HEAD
+// ...
 struct nodeSach{
+=======
+struct nodeSach{//Đây là sách 
+>>>>>>> a6dc5a6e878b502419e5976a1d7ba6d6f3b40e6c
 	Sach sach;
+=======
+struct nodeSach{//Testvscode
+	Sach sach;//testvscode
+>>>>>>> b49fff96c72c263c01378412f2e3fcec329fdc7c
 	nodeSach *next;
 }; 
 typedef struct nodeSach *pDMS;
 
-/*struct list{
+struct list{
 	pDMS *phead ;
 	pDMS *ptail ;
 	list(){
@@ -29,7 +39,7 @@ typedef struct nodeSach *pDMS;
 	}
 };
 typedef struct list List;
-
+/*
 pDMS *Khoitaonodesach(Sach newsach){
 	pDMS *p = new pDMS;
 	if(p==NULL)
@@ -55,8 +65,7 @@ void Insert_last(List &l, pDMS *p){
 		l.phead->next=p;
 		p->next=l.ptail;
 	}
-}*/
-
+*/
 
 // Cau truc dau sach: Danh sach tuyen tinh.
 struct Dausach{
