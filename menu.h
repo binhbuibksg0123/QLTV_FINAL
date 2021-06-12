@@ -1868,6 +1868,7 @@ int kichThuocSTT = 30;
 void VekhungnhapSach(DSDS &dsds,int apos, List &l){
 	int kichThuocSTT = 50;
 	int kichThuocNut = 40;
+	int thaotac;
 	
 	int L = 1200;
 	int U = 471;
@@ -1942,7 +1943,7 @@ void VekhungnhapSach(DSDS &dsds,int apos, List &l){
 				veKhung(1245,ViTrichuDms[i],danhSachDanhmucsach[i],0,NEN_TEXT,WHITE);
 			}
 			
-			char tmptt[5];	
+			char tmptt[1];	
 					
 			strcpy(tmptt,toChars(tmpD.Trangthai));
 												
@@ -1957,7 +1958,7 @@ void VekhungnhapSach(DSDS &dsds,int apos, List &l){
 				}
 				case 2:{
 					veKhung(1245,605,danhSachDanhmucsach[2],1,NEN_TEXT,WHITE);
-					Nhap(1425,605,2,key,tmptt,5);
+					Nhap(1425,605,0,key,tmptt,5);
 					break;
 				}
 				case 3:{
@@ -2005,22 +2006,19 @@ void VekhungnhapSach(DSDS &dsds,int apos, List &l){
 											dsds.addsach(apos, tmpD);
 											dsds.nodes[apos]->soluong++;
 											ThongBao(1500,500,Success[0],GREEN,NEN_KHUNG);
-											return;
+											return MenuDms(dsds,khungdms,3,thaotac);
 										}
-										else
-										{
-											ThongBao(1150, 165, Fail[0], LIGHTRED, MAU_MENU);
+										else{
+											ThongBao(1500, 500, Fail[0], LIGHTRED, NEN_KHUNG);
 										}
 									}
-									
-									else{	
-//										chondanhMucsach(dsds, Dms);
+									else {	
 										return;
 									}
 								}
 								else if (key5 == 27){
-									VeMenu();
-									return;
+								VeMenu();
+								return;
 								}
 								veKhungNut1( KhungNoiDung, buttonL, 0,1);
 							}
@@ -2045,6 +2043,23 @@ void BatMuc(int sttmenu, char menu[][30], int HL_COLOR, int C_SIZE){
 	outtextxy(1535, ViTrichuDms[sttmenu], menu[sttmenu-1]);
 	settextstyle(COMPLEX_FONT, 0, 2);
 	}
+
+void inDms(pDMS ds, int posX, int posY){
+	char tmptt[8];
+	strcpy(tmptt,toChars(ds->sach.Trangthai));
+
+	// in Ma sach
+	outtextxy(posX + canLeGiua(ds->sach.Masach, textwidth(danhSachDausach[1])+sizeDanhmucsach[1]*2), posY, ds->sach.Masach);
+	posX += textwidth(danhSachDausach[2]) + sizeDanhmucsach[1]*2;
+	
+	/*// in Trang thai
+	outtextxy(posX + 10, posY, tmptt);
+	posX += textwidth(danhSachDanhmucsach[3]) + sizeDanhmucsach[2]*2;
+	
+	// in Vi tri
+	outtextxy(posX + 80, posY, ds->Vitri);
+	posX += textwidth(danhSachDanhmucsach[4]) + sizeDanhmucsach[3]*2;*/
+}
 
 void VeMenudms(DSDS &dsds, char khungNoiDung[][30], int sizeKhungNoiDung[], int start){
 	int kichThuocSTT = 40;
@@ -2104,11 +2119,11 @@ void VeMenudms(DSDS &dsds, char khungNoiDung[][30], int sizeKhungNoiDung[], int 
 	}
 	settextstyle(COMPLEX_FONT,0,2);
 	// in thong tin
-	/*setcolor(WHITE);
+	setcolor(WHITE);
 	setbkcolor(NEN_KHUNG);
 	dis = U + kichThuocSTT;
 	int Size = dsds.n;
-	for (int i = start; i < min(start+OBJ_PER_PAGE, Size); i++){
+	for (int i = start-1; i < min(start+9, Size); i++){
 		dis += 5;	
 		// in STT
 		int disW = L;
@@ -2116,10 +2131,14 @@ void VeMenudms(DSDS &dsds, char khungNoiDung[][30], int sizeKhungNoiDung[], int 
 		outtextxy(disW + canLeGiua(d, textwidth(khungNoiDung[0])+sizeKhungNoiDung[0]*2), dis, d);
 		disW += textwidth(khungNoiDung[0]) + sizeKhungNoiDung[0]*2;
 		
-		inDausach(dsds.nodes[i], disW, dis);
+		struct List tmpL = dsds.nodes[start]->listsach;
+		for(pDMS node=tmpL.First; node != NULL; node = node->next){
+			inDms(node, disW, dis);
+		}
+		
 		
 		dis += h+5;
-	}*/
+	}
 	
 }
 
@@ -2186,7 +2205,7 @@ void MenuDms(DSDS &dsds, char menu[][30], int MAXMENU, int &chonMuc){
 	VeMenu();
 }*/
 
-/*void chondanhMucsach(DSDS &ListDausach,int &pos, List &l){
+void chondanhMucsach(DSDS &ListDausach,int &pos, List &l){
 	int thaotac;
 	VeMenudms(ListDausach,danhSachDanhmucsach,sizeDanhmucsach,1);
 	MenuDms(ListDausach,khungdms,3,thaotac);
@@ -2197,7 +2216,7 @@ void MenuDms(DSDS &dsds, char menu[][30], int MAXMENU, int &chonMuc){
 		}
 		
 	}		
-}*/
+}
 
 void DanhMucsach(DSDS &ListDausach, List &l){
 	bool select;
@@ -2207,8 +2226,8 @@ void DanhMucsach(DSDS &ListDausach, List &l){
 		Vekhungdanhmucsach(ListDausach,addPos,page,select);
 		VeMenudms(ListDausach,danhSachDanhmucsach,sizeDanhmucsach,1);
 		if(select){
-//			chondanhMucsach(ListDausach,addPos, l);
-			VekhungnhapSach(ListDausach, addPos, l);
+			chondanhMucsach(ListDausach,addPos, l);
+//			VekhungnhapSach(ListDausach, addPos, l);
 		}else{
 			break;
 		}
