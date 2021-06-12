@@ -15,7 +15,7 @@ struct Sach{
 	}
 };
 struct nodeSach{//Đây là sách 
-	Sach sach;//??????
+	Sach sach;//?????? / đây là data của 1 nodeSach. 
 	nodeSach *next;//Testvscode
 }; //testvscode
 typedef struct nodeSach *pDMS;//testvscode
