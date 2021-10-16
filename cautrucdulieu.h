@@ -19,9 +19,21 @@ struct Sach {
 		Vitri[0] = '\0';
 	}
 };
-struct nodeSach {
-	Sach sach;
-	nodeSach* next;
+struct nodeSach{//Đây là sách 
+	Sach sach;//?????? / đây là data của 1 nodeSach. 
+	nodeSach *next;//Testvscode
+}; //testvscode
+typedef struct nodeSach *pDMS;//testvscode
+// day la test
+// day la test
+struct list{
+	pDMS *phead ;
+	pDMS *ptail ;
+	list(){
+		phead = NULL;
+		ptail = NULL;
+	}
+
 };
 typedef struct nodeSach* pDMS;
 
